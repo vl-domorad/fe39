@@ -1,0 +1,89 @@
+@import "src/assets/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid $medium;
+  max-width: 736px;
+  height: 450px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+.iconContainer {
+  display: flex;
+  gap: 24px;
+}
+.infoContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.image {
+  max-width: 256px;
+  object-fit: cover;
+  max-height: 244px;
+}
+.text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: $gray;
+}
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44px;
+  color: $secondary;
+}
+.date {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: $gray;
+}
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mainInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mediumInfoContainer {
+  flex-direction: column-reverse;
+  gap: 24px;
+}
+
+.mediumContainer {
+  max-width: 352px;
+}
+
+.mediumTitle {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.mediumImage {
+  max-width: 352px;
+  max-height: 246px;
+}
+
+.smallContainer {
+  height: 206px;
+  max-width: 354px;
+}
+.smallImage {
+  max-height: 96px;
+  max-width: 96px;
+}
+.smallInfoContainer {
+  gap: 34px;
+}

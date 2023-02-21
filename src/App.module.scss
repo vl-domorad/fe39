@@ -1,9 +1,23 @@
 .header {
-    background-color: red;
+  background-color: red;
 }
 
 .title {
-    font-weight: 600;
-    text-decoration: underline;
-    color: white;
+  font-weight: 600;
+  text-decoration: underline;
+  color: white;
+}
+.burgerButton {
+  height: 84px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 84px;
+}
+
+.container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
