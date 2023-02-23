@@ -9,6 +9,7 @@
   border-bottom: 1px solid $medium;
   max-width: 736px;
   height: 450px;
+  box-sizing: border-box;
 }
 
 .footer {
@@ -64,6 +65,7 @@
 
 .mediumContainer {
   max-width: 352px;
+  gap: 27px;
 }
 
 .mediumTitle {
@@ -79,11 +81,12 @@
 .smallContainer {
   height: 206px;
   max-width: 354px;
+  gap: 23px;
 }
 .smallImage {
   max-height: 96px;
   max-width: 96px;
 }
 .smallInfoContainer {
-  gap: 34px;
+  gap: 24px;
 }
