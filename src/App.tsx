@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./App.module.scss";
 import Home from "./pages/Home";
+import ThemeProvider from "./context/Theme/Provider";
+import { Theme } from "./context/Theme/Context";
 
 const App = () => {
+  const [theme, setTheme] = useState(Theme.Dark);
+
+  const onChangeTheme = (value: Theme) => {
+    setTheme(value);
+  };
+
   return (
-    <div className={styles.container}>
+    <ThemeProvider theme={theme} onChangeTheme={onChangeTheme}>
       <Home />
-    </div>
+    </ThemeProvider>
   );
 };
 

@@ -26,3 +26,12 @@
     color: $gray;
   }
 }
+.darkContainer {
+  border-bottom-color: $gray;
+  .tab {
+    color: $white;
+  }
+  .activeTab {
+    border-bottom-color: $white;
+  }
+}

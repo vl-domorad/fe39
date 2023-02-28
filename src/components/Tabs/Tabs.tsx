@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 
 import styles from "./Tabs.module.scss";
+import { Theme, useThemeContext } from "../../context/Theme/Context";
 
 enum TabsNames {
   All,
@@ -15,24 +16,23 @@ const TABS_LIST = [
     disabled: false,
     key: TabsNames.All,
   },
-
   {
     title: "My favorites",
     disabled: true,
     key: TabsNames.Favourites,
   },
-
   {
     title: "Popular",
     disabled: false,
     key: TabsNames.Popular,
   },
 ];
-
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(TabsNames.All);
 
   const onTabClick = (key: TabsNames) => () => setActiveTab(key);
+
+  const { theme } = useThemeContext();
 
   // onTabClick = (key: TabsNames) => {
   //   return () => {
@@ -41,7 +41,11 @@ const Tabs = () => {
   // };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(styles.container, {
+        [styles.darkContainer]: theme === Theme.Dark,
+      })}
+    >
       {TABS_LIST.map((tab) => {
         return (
           <div
