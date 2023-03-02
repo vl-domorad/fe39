@@ -1,0 +1,33 @@
+@import "src/assets/colors";
+.container{
+  margin-bottom: 20px;
+}
+.title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $secondary;
+  margin-bottom: 8px;
+}
+.input {
+  width: 544px;
+  height: 56px;
+  border: none;
+  &:focus {
+    outline: none;
+    border: 2px solid $medium;
+  }
+}
+.disabled{
+  background: $light;
+  border-radius: 2px;
+  cursor: not-allowed;
+}
+
+.valid{
+  border: 2px solid $error;
+  border-radius: 2px;
+}
+.validText{
+  color: $error;
+}
