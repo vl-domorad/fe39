@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
 
 import { CardProps, CardSize } from "./types";
 import styles from "./Card.module.scss";
@@ -10,15 +11,31 @@ import {
   MoreIcon,
 } from "../../assets/icons";
 import { Theme, useThemeContext } from "../../context/Theme/Context";
+import {
+  LikeStatus,
+  PostSelectors,
+  setStatus,
+} from "../../redux/reducers/postSlice";
 
 const Card: FC<CardProps> = ({ card, size }) => {
   const { title, text, date, image } = card;
 
   const { theme } = useThemeContext();
+  const dispatch = useDispatch();
 
   const isMedium = size === CardSize.Medium;
   const isSmall = size === CardSize.Small;
   const isDark = theme === Theme.Dark;
+
+  const onStatusClick = (status: LikeStatus) => () => {
+    dispatch(setStatus({ status, card }));
+  };
+
+  const likedPosts = useSelector(PostSelectors.getLikedPosts);
+  const dislikedPosts = useSelector(PostSelectors.getDislikedPosts);
+
+  const likedIndex = likedPosts.findIndex((post) => post.id === card.id);
+  const dislikedIndex = dislikedPosts.findIndex((post) => post.id === card.id);
 
   return (
     <div
@@ -62,11 +79,13 @@ const Card: FC<CardProps> = ({ card, size }) => {
             [styles.darkIconContainer]: isDark,
           })}
         >
-          <div>
+          <div onClick={onStatusClick(LikeStatus.Like)}>
             <LikeIcon />
+            {likedIndex > -1 && 1}
           </div>
-          <div>
+          <div onClick={onStatusClick(LikeStatus.Dislike)}>
             <DislikeIcon />
+            {dislikedIndex > -1 && 1}
           </div>
         </div>
         <div

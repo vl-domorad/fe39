@@ -1,10 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import ThemeProvider from "./context/Theme/Provider";
-import { Theme } from "./context/Theme/Context";
+import {Theme} from "./context/Theme/Context";
 import Router from "./pages/Router";
-import { changeTheme, ThemeSelectors } from "./redux/reducers/themeSlice";
+import {changeTheme, ThemeSelectors} from "./redux/reducers/themeSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,11 @@ const App = () => {
   const onChangeTheme = (value: Theme) => {
     dispatch(changeTheme(value));
   };
+
+  const onChange = onChangeTheme
+
+
+  onChange(Theme.Dark)
 
   return (
     <ThemeProvider theme={theme} onChangeTheme={onChangeTheme}>
