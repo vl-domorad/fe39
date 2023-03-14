@@ -24,6 +24,7 @@ const Router = () => {
       <Routes>
         <Route path={RoutesList.Home} element={<PagesContainer />}>
           <Route path={RoutesList.Home} element={<Home />} />
+          <Route path={RoutesList.SinglePost} element={<Home />} />
           <Route
             path={RoutesList.AddPost}
             element={

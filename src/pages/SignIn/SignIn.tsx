@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import classNames from "classnames";
+
 import styles from "./SignIn.module.scss";
 import Title from "../../components/Title";
 import Input from "../../components/Input";
-import classNames from "classnames";
 import Button from "../../components/Button";
-import { ButtonType } from "../../components/Button/Button";
 import { Theme, useThemeContext } from "../../context/Theme/Context";
-import { NavLink } from "react-router-dom";
 import { RoutesList } from "../Router";
+import { ButtonType } from "../../utils/@globalTypes";
 
 const SingIn = () => {
   const [email, setEmail] = useState("");
@@ -75,7 +76,9 @@ const SingIn = () => {
             })}
           >
             Don’t have an account?{" "}
-            <NavLink to={RoutesList.SignUp} className={styles.navButton}>Sign Up</NavLink>
+            <NavLink to={RoutesList.SignUp} className={styles.navButton}>
+              Sign Up
+            </NavLink>
           </div>
         </div>
       </div>

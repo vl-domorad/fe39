@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CardType } from "../../components/Card";
 import { RootState } from "../store";
+import { CardListType, CardType } from "../../utils/@globalTypes";
 
 export enum LikeStatus {
   Like = "like",
@@ -10,8 +10,9 @@ export enum LikeStatus {
 type PostState = {
   selectedPost: CardType | null;
   isModalPostOpened: boolean;
-  likedPosts: CardType[];
-  dislikedPosts: CardType[];
+  likedPosts: CardListType;
+  dislikedPosts: CardListType;
+  postsList: CardListType;
 };
 
 const initialState: PostState = {
@@ -19,12 +20,17 @@ const initialState: PostState = {
   isModalPostOpened: false,
   likedPosts: [],
   dislikedPosts: [],
+  postsList: [],
 };
 
 const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
+    getAllPosts: (_, __: PayloadAction<undefined>) => {},
+    setAllPosts: (state, action: PayloadAction<CardListType>) => {
+      state.postsList = action.payload;
+    },
     setSelectedPost: (state, action: PayloadAction<CardType | null>) => {
       state.selectedPost = action.payload;
     },
@@ -61,11 +67,12 @@ const postSlice = createSlice({
   },
 });
 
-export const { setStatus } = postSlice.actions;
+export const { setStatus, getAllPosts, setAllPosts } = postSlice.actions;
 export const postName = postSlice.name;
 export default postSlice.reducer;
 
 export const PostSelectors = {
   getLikedPosts: (state: RootState) => state.post.likedPosts,
   getDislikedPosts: (state: RootState) => state.post.dislikedPosts,
+  getAllPosts: (state: RootState) => state.post.postsList,
 };
