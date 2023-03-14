@@ -19,6 +19,12 @@
 .iconContainer {
   display: flex;
   gap: 24px;
+  div:hover {
+    cursor: pointer;
+    svg > path {
+      fill: $primary-secondary;
+    }
+  }
 }
 .infoContainer {
   display: flex;
@@ -94,7 +100,6 @@
   color: $white;
 }
 .darkIconContainer {
-
   div > svg > path {
     fill: $white;
   }

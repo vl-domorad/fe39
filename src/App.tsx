@@ -15,11 +15,6 @@ const App = () => {
     dispatch(changeTheme(value));
   };
 
-  const onChange = onChangeTheme
-
-
-  onChange(Theme.Dark)
-
   return (
     <ThemeProvider theme={theme} onChangeTheme={onChangeTheme}>
       <Router />

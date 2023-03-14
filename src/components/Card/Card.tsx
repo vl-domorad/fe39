@@ -7,6 +7,7 @@ import styles from "./Card.module.scss";
 import {
   BookmarkIcon,
   DislikeIcon,
+  FilledBookmarkIcon,
   LikeIcon,
   MoreIcon,
 } from "../../assets/icons";
@@ -66,6 +67,7 @@ const Card: FC<CardProps> = ({ card, size }) => {
           {size === CardSize.Large && <div className={styles.text}>{text}</div>}
         </div>
         <img
+          alt=""
           src={image}
           className={classNames(styles.image, {
             [styles.mediumImage]: isMedium,
@@ -93,8 +95,8 @@ const Card: FC<CardProps> = ({ card, size }) => {
             [styles.darkIconContainer]: isDark,
           })}
         >
-          <div>
-            <BookmarkIcon />
+          <div className={styles.saveIcon}>
+            {false ? <FilledBookmarkIcon /> : <BookmarkIcon />}
           </div>
           <div>
             <MoreIcon />
