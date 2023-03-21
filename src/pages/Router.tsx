@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PagesContainer from "./PagesContainer";
 import SignIn from "./SignIn";
 import Home from "./Home";
+import SignUp from "./SignUp";
+import Confirm from "./Cofirm";
 
 export enum RoutesList {
   Home = "/",
@@ -12,7 +14,7 @@ export enum RoutesList {
   AddPost = "/blog/add",
   SignIn = "/sign-in",
   SignUp = "/sign-up",
-  Confirm = "/sign-up/confirm",
+  Confirm = "/activate/:uid/:token",
   Success = "/sign-up/success",
   Default = "*",
 }
@@ -32,6 +34,8 @@ const Router = () => {
             }
           />
           <Route path={RoutesList.SignIn} element={<SignIn />} />
+          <Route path={RoutesList.SignUp} element={<SignUp />} />
+          <Route path={RoutesList.Confirm} element={<Confirm />} />
           <Route path={RoutesList.Default} element={<div>404 NOT FOUND</div>} />
         </Route>
       </Routes>
