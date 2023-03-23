@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
 
 import styles from "./SignUp.module.scss";
-import Title from "../../components/Title";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import { ButtonType } from "../../utils/@globalTypes";
-import { Theme, useThemeContext } from "../../context/Theme/Context";
+import Title from "src/components/Title";
+import Input from "src/components/Input";
+import Button from "src/components/Button";
+import { ButtonType } from "src/utils/@globalTypes";
+import { Theme, useThemeContext } from "src/context/Theme/Context";
 import { RoutesList } from "../Router";
-import { useDispatch } from "react-redux";
-import { signUpUser } from "../../redux/reducers/authSlice";
+import { signUpUser } from "src/redux/reducers/authSlice";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -81,7 +81,7 @@ const SignUp = () => {
       emailError.length === 0 &&
       passwordError.length === 0
     );
-  }, [nameError]);
+  }, [nameError, emailError, passwordError]);
 
   // Используем, если не надо показывать никаких ошибок пользователю
   // const isValid = useMemo(() => {

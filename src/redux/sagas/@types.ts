@@ -1,4 +1,4 @@
-import { CardListType } from "../../utils/@globalTypes";
+import { CardListType } from "src/utils/@globalTypes";
 
 export type AllPostsResponse = {
   count: number;
@@ -11,4 +11,9 @@ export type SignUpUserResponse = {
   username: string;
   email: string;
   id: number;
+};
+
+export type SignInResponse = {
+  access: string;
+  refresh: string;
 };

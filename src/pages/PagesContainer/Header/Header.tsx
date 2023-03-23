@@ -2,20 +2,23 @@ import React, { useMemo, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import Button from "../../../components/Button";
-import { CloseIcon, OpenedMenu, UserIcon } from "../../../assets/icons";
+import { CloseIcon, OpenedMenu, UserIcon } from "src/assets/icons";
 import UserName from "../../../components/UserName";
 import ThemeSwitcher from "../../../components/ThemeSwitcher";
 import { RoutesList } from "../../Router";
 import styles from "./Header.module.scss";
 import classNames from "classnames";
-import { ButtonType } from "../../../utils/@globalTypes";
+import { ButtonType } from "src/utils/@globalTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthSelectors, logoutUser } from "src/redux/reducers/authSlice";
 
 const Header = () => {
   const [isOpened, setOpened] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+  const dispatch = useDispatch();
 
   const onClickMenuButton = () => {
     setOpened(!isOpened);
@@ -23,6 +26,10 @@ const Header = () => {
 
   const onAuthButtonClick = () => {
     navigate(RoutesList.SignIn);
+  };
+
+  const onLogoutClick = () => {
+    dispatch(logoutUser());
   };
 
   const navButtonsList = useMemo(
@@ -85,7 +92,7 @@ const Header = () => {
             <ThemeSwitcher />
             <Button
               title={isLoggedIn ? "Log out" : "Sign In"}
-              onClick={isLoggedIn ? () => {} : onAuthButtonClick}
+              onClick={isLoggedIn ? onLogoutClick : onAuthButtonClick}
               type={ButtonType.Secondary}
               className={styles.authButton}
             />
