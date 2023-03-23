@@ -61,6 +61,16 @@ function* signInUserWorker(action: PayloadAction<SignInUserPayload>) {
   }
 }
 
+function* getUserInfo() {
+  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  if (accessToken) {
+    const { ok, problem, data }: ApiResponse<any> = yield call(
+      API.getUserInfo,
+      accessToken
+    );
+  }
+}
+
 function* logoutUserWorker() {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(REFRESH_TOKEN_KEY);

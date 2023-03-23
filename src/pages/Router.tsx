@@ -23,6 +23,7 @@ export enum RoutesList {
 
 const Router = () => {
   const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+
   return (
     <BrowserRouter>
       <Routes>
