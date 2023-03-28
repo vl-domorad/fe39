@@ -7,9 +7,11 @@ import {
   SignInUserPayload,
 } from "./@types";
 import { ACCESS_TOKEN_KEY } from "src/utils/constants";
+import { UserInfoResponse } from "src/redux/sagas/@types";
 
-const initialState = {
+const initialState: any = {
   isLoggedIn: !!localStorage.getItem(ACCESS_TOKEN_KEY),
+  userInfo: null
 };
 
 const authSlice = createSlice({
@@ -23,10 +25,14 @@ const authSlice = createSlice({
       state.isLoggedIn = action.payload;
     },
     logoutUser: (_, __: PayloadAction<undefined>) => {},
+    getUserInfo: (_, __: PayloadAction<undefined>) => {},
+    setUserInfo: (state, action: PayloadAction<UserInfoResponse | null>) => {
+      state.userInfo = action.payload;
+    },
   },
 });
 
-export const { signUpUser, activateUser, signInUser, setLoggedIn, logoutUser } =
+export const { signUpUser, activateUser, signInUser, setLoggedIn, logoutUser, setUserInfo, getUserInfo } =
   authSlice.actions;
 export default authSlice.reducer;
 
