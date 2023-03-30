@@ -1,15 +1,17 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, KeyboardEvent } from "react";
 import classNames from "classnames";
 import styles from "./Input.module.scss";
 
 type InputProps = {
   value: string;
   onChange: (value: string) => void;
-  title: string;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  title?: string;
   placeholder: string;
   disabled?: boolean;
   errorText?: string;
   type?: string;
+  inputClassName?: string;
 };
 const Input: FC<InputProps> = ({
   value,
@@ -19,6 +21,8 @@ const Input: FC<InputProps> = ({
   placeholder,
   disabled,
   errorText,
+  inputClassName,
+  onKeyDown,
 }) => {
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -26,14 +30,15 @@ const Input: FC<InputProps> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>{title}</div>
+      {title && <div className={styles.title}>{title}</div>}
       <input
         value={value}
-        className={classNames(styles.input, {
+        className={classNames(styles.input, inputClassName, {
           [styles.disabled]: disabled,
           [styles.valid]: errorText,
         })}
         placeholder={placeholder}
+        onKeyDown={onKeyDown}
         onChange={onChangeText}
         disabled={disabled}
         type={type}

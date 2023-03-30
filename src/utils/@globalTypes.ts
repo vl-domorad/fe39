@@ -9,12 +9,13 @@ export type CardType = {
   author: number;
 };
 
-export type CardListType = CardType[]
+export type CardListType = CardType[];
 
 export enum CardSize {
   Large,
   Medium,
   Small,
+  Search,
 }
 
 export enum ButtonType {
@@ -22,7 +23,6 @@ export enum ButtonType {
   Secondary = "Secondary",
   Error = "Error",
 }
-
 
 export enum TabsNames {
   All,

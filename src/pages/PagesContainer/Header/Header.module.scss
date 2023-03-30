@@ -9,11 +9,24 @@
   top: 0;
   width: 100%;
 }
-
+.infoContainer {
+  display: flex;
+}
+.input {
+  min-height: 84px;
+  flex: 1;
+  background-color: $primary-secondary;
+  color: $white;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
 .button {
   height: 84px;
   width: 84px;
   padding: 28px;
+  border-left: 1px solid $primary-secondary;
+  border-right: 1px solid $primary-secondary;
 }
 .menuContainer {
   position: absolute;

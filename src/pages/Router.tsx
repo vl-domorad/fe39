@@ -8,6 +8,7 @@ import Home from "./Home";
 import SignUp from "./SignUp";
 import Confirm from "./Cofirm";
 import { AuthSelectors, getUserInfo } from "src/redux/reducers/authSlice";
+import Search from "src/pages/Search";
 
 export enum RoutesList {
   Home = "/",
@@ -46,6 +47,7 @@ const Router = () => {
           <Route path={RoutesList.SignIn} element={<SignIn />} />
           <Route path={RoutesList.SignUp} element={<SignUp />} />
           <Route path={RoutesList.Confirm} element={<Confirm />} />
+          <Route path={RoutesList.Search} element={<Search />} />
           <Route path={RoutesList.Default} element={<div>404 NOT FOUND</div>} />
         </Route>
       </Routes>

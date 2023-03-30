@@ -13,6 +13,8 @@ type PostState = {
   likedPosts: CardListType;
   dislikedPosts: CardListType;
   postsList: CardListType;
+  searchedPosts: CardListType;
+  searchValue: string;
 };
 
 const initialState: PostState = {
@@ -21,6 +23,8 @@ const initialState: PostState = {
   likedPosts: [],
   dislikedPosts: [],
   postsList: [],
+  searchedPosts: [],
+  searchValue: "",
 };
 
 const postSlice = createSlice({
@@ -64,10 +68,22 @@ const postSlice = createSlice({
         state[secondaryKey].splice(secondaryIndex, 1);
       }
     },
+    getSearchedPosts: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
+    },
+    setSearchedPosts: (state, action: PayloadAction<CardListType>) => {
+      state.searchedPosts = action.payload;
+    },
   },
 });
 
-export const { setStatus, getAllPosts, setAllPosts } = postSlice.actions;
+export const {
+  setStatus,
+  getAllPosts,
+  setAllPosts,
+  getSearchedPosts,
+  setSearchedPosts,
+} = postSlice.actions;
 export const postName = postSlice.name;
 export default postSlice.reducer;
 
@@ -75,4 +91,6 @@ export const PostSelectors = {
   getLikedPosts: (state: RootState) => state.post.likedPosts,
   getDislikedPosts: (state: RootState) => state.post.dislikedPosts,
   getAllPosts: (state: RootState) => state.post.postsList,
+  getSearchedPosts: (state: RootState) => state.post.searchedPosts,
+  getSearchValue: (state: RootState) => state.post.searchValue,
 };

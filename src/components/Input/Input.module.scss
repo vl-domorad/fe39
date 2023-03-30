@@ -1,5 +1,5 @@
 @import "src/assets/colors";
-.container{
+.container {
   margin-bottom: 20px;
 }
 .title {
@@ -12,22 +12,24 @@
 .input {
   width: 544px;
   height: 56px;
-  border: none;
-  &:focus {
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  &:focus,
+  &:hover {
     outline: none;
     border: 2px solid $medium;
   }
 }
-.disabled{
+.disabled {
   background: $light;
   border-radius: 2px;
   cursor: not-allowed;
 }
 
-.valid{
+.valid {
   border: 2px solid $error;
   border-radius: 2px;
 }
-.validText{
+.validText {
   color: $error;
 }
