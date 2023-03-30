@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
+import classNames from "classnames";
 
 import Title from "../../components/Title";
 import Tabs from "../../components/Tabs";
 import CardsList from "../../components/CardsList";
-import { getAllPosts, PostSelectors } from "../../redux/reducers/postSlice";
+import { getAllPosts, PostSelectors } from "src/redux/reducers/postSlice";
 import { TabsNames } from "src/utils/@globalTypes";
+import { PER_PAGE } from "src/utils/constants";
+import styles from "./Home.module.scss";
+
+enum Order {
+  Title = "title",
+  Date = "date",
+}
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState(TabsNames.All);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const onTabClick = (key: TabsNames) => () => setActiveTab(key);
+  const onTabClick = (key: TabsNames) => () => {
+    setActiveTab(key);
+    setCurrentPage(1);
+  };
   const dispatch = useDispatch();
 
   const postsList = useSelector(PostSelectors.getAllPosts);
   const favouriteList = useSelector(PostSelectors.getLikedPosts);
+  const postsCount = useSelector(PostSelectors.getAllPostsCount);
+  const pagesCount = Math.ceil(postsCount / PER_PAGE);
 
   const getCurrentList = () => {
     switch (activeTab) {
@@ -33,14 +48,39 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllPosts());
-  }, []);
-
+    const offset = PER_PAGE * (currentPage - 1);
+    dispatch(getAllPosts({ offset }));
+  }, [currentPage]);
+  const onPageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected + 1);
+  };
   return (
     <div>
       <Title title={"Blog"} />
       <Tabs activeTab={activeTab} onTabClick={onTabClick} />
       <CardsList cardsList={getCurrentList()} />
+      {activeTab !== TabsNames.Popular &&
+        activeTab !== TabsNames.Favourites && (
+          <ReactPaginate
+            pageCount={pagesCount}
+            onPageChange={onPageChange}
+            containerClassName={styles.pagesContainer}
+            pageClassName={styles.pageNumber}
+            breakClassName={styles.pageNumber}
+            breakLinkClassName={styles.linkPage}
+            activeLinkClassName={styles.linkPage}
+            pageLinkClassName={styles.linkPage}
+            activeClassName={styles.activePageNumber}
+            nextClassName={classNames(styles.arrowButton, {
+              [styles.blockedButton]: currentPage === pagesCount,
+            })}
+            previousClassName={classNames(styles.arrowButton, {
+              [styles.blockedButton]: currentPage === 1,
+            })}
+            previousLinkClassName={styles.linkPage}
+            nextLinkClassName={styles.linkPage}
+          />
+        )}
     </div>
   );
 };

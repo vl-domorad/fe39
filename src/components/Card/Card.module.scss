@@ -37,9 +37,9 @@
   justify-content: space-between;
 }
 .image {
-  max-width: 256px;
+  width: 256px;
   object-fit: cover;
-  max-height: 244px;
+  height: 244px;
 }
 .text {
   font-weight: 400;
@@ -90,8 +90,8 @@
 }
 
 .mediumImage {
-  max-width: 352px;
-  max-height: 246px;
+  width: 352px;
+  height: 246px;
 }
 
 .smallContainer {

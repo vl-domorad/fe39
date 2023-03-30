@@ -1,5 +1,6 @@
 import { takeLatest, all, call, put } from "redux-saga/effects";
 import { ApiResponse } from "apisauce";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 import {
   getAllPosts,
@@ -9,14 +10,16 @@ import {
 } from "../reducers/postSlice";
 import API from "../api";
 import { AllPostsResponse } from "./@types";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { GetAllPostsPayload } from "src/redux/reducers/@types";
 
-function* getAllPostsWorker() {
+function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
+  const { offset } = action.payload;
   const { ok, data, problem }: ApiResponse<AllPostsResponse> = yield call(
-    API.getPosts
+    API.getPosts,
+    offset
   );
   if (ok && data) {
-    yield put(setAllPosts(data.results));
+    yield put(setAllPosts({ cardList: data.results, postsCount: data.count }));
   } else {
     console.warn("Error getting all posts", problem);
   }
@@ -25,6 +28,7 @@ function* getAllPostsWorker() {
 function* getSearchedPostsWorker(action: PayloadAction<string>) {
   const { ok, data, problem }: ApiResponse<AllPostsResponse> = yield call(
     API.getPosts,
+    0,
     action.payload
   );
   if (ok && data) {
