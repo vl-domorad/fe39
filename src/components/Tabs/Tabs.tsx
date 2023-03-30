@@ -1,44 +1,47 @@
-import React, { useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import classNames from "classnames";
 
 import styles from "./Tabs.module.scss";
-import { Theme, useThemeContext } from "../../context/Theme/Context";
+import { Theme, useThemeContext } from "src/context/Theme/Context";
+import { TabsNames } from "src/utils/@globalTypes";
+import { useSelector } from "react-redux";
+import { AuthSelectors } from "src/redux/reducers/authSlice";
 
-enum TabsNames {
-  All,
-  Favourites,
-  Popular,
-}
+type TabsProps = {
+  activeTab: TabsNames;
+  onTabClick: (tab: TabsNames) => () => void;
+};
 
-const TABS_LIST = [
-  {
-    title: "All",
-    disabled: false,
-    key: TabsNames.All,
-  },
-  {
-    title: "My favorites",
-    disabled: true,
-    key: TabsNames.Favourites,
-  },
-  {
-    title: "Popular",
-    disabled: false,
-    key: TabsNames.Popular,
-  },
-];
-const Tabs = () => {
-  const [activeTab, setActiveTab] = useState(TabsNames.All);
-
-  const onTabClick = (key: TabsNames) => () => setActiveTab(key);
-
+const Tabs: FC<TabsProps> = ({ activeTab, onTabClick }) => {
   const { theme } = useThemeContext();
 
-  // onTabClick = (key: TabsNames) => {
-  //   return () => {
-  //     setActiveTab(key);
-  //   }
-  // };
+  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+
+  const TABS_LIST = useMemo(
+    () => [
+      {
+        title: "All",
+        disabled: false,
+        key: TabsNames.All,
+      },
+      {
+        title: "My Posts",
+        disabled: !isLoggedIn,
+        key: TabsNames.MyPosts,
+      },
+      {
+        title: "Popular",
+        disabled: false,
+        key: TabsNames.Popular,
+      },
+      {
+        title: "Favourites",
+        disabled: false,
+        key: TabsNames.Favourites,
+      },
+    ],
+    [isLoggedIn]
+  );
 
   return (
     <div

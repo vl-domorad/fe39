@@ -8,3 +8,4 @@ export { SunIcon } from "./SunIcon";
 export { MoonIcon } from "./MoonIcon";
 export { UserIcon } from "./UserIcon";
 export { FilledBookmarkIcon } from "./FilledBookmarkIcon";
+export { NoContentIcon } from "./NoContentIcon";

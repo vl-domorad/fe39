@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { Theme, ThemeContext } from "./Context";
 
 type ThemeProviderProps = {
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
   theme: Theme;
   onChangeTheme: (value: Theme) => void;
 };
