@@ -7,6 +7,7 @@ import {
   getAllPosts,
   getSearchedPosts,
   setAllPosts,
+  setAllPostsLoading,
   setSearchedPosts,
 } from "../reducers/postSlice";
 import API from "../api";
@@ -15,6 +16,7 @@ import { AddPostPayload, GetAllPostsPayload } from "src/redux/reducers/@types";
 import callCheckingAuth from "src/redux/sagas/callCheckingAuth";
 
 function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
+  yield put(setAllPostsLoading(true));
   const { offset } = action.payload;
   const { ok, data, problem }: ApiResponse<AllPostsResponse> = yield call(
     API.getPosts,
@@ -25,6 +27,7 @@ function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
   } else {
     console.warn("Error getting all posts", problem);
   }
+  yield put(setAllPostsLoading(false));
 }
 
 function* getSearchedPostsWorker(action: PayloadAction<string>) {

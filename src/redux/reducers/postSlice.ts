@@ -21,6 +21,7 @@ type PostState = {
   searchedPosts: CardListType;
   searchValue: string;
   postsCount: number;
+  isAllPostsLoading: boolean;
 };
 
 const initialState: PostState = {
@@ -32,6 +33,7 @@ const initialState: PostState = {
   searchedPosts: [],
   searchValue: "",
   postsCount: 0,
+  isAllPostsLoading: false,
 };
 
 const postSlice = createSlice({
@@ -45,6 +47,9 @@ const postSlice = createSlice({
     ) => {
       state.postsList = cardList;
       state.postsCount = postsCount;
+    },
+    setAllPostsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isAllPostsLoading = action.payload
     },
     setSelectedPost: (state, action: PayloadAction<CardType | null>) => {
       state.selectedPost = action.payload;
@@ -96,6 +101,7 @@ export const {
   getSearchedPosts,
   setSearchedPosts,
   addNewPost,
+  setAllPostsLoading
 } = postSlice.actions;
 export const postName = postSlice.name;
 export default postSlice.reducer;
@@ -107,4 +113,5 @@ export const PostSelectors = {
   getSearchedPosts: (state: RootState) => state.post.searchedPosts,
   getSearchValue: (state: RootState) => state.post.searchValue,
   getAllPostsCount: (state: RootState) => state.post.postsCount,
+  getAllPostsLoading: (state: RootState) => state.post.isAllPostsLoading,
 };
