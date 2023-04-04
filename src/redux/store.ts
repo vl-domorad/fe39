@@ -5,14 +5,14 @@ import storage from "redux-persist/lib/storage";
 
 import themeReducer from "./reducers/themeSlice";
 import authReducer from "./reducers/authSlice";
-import postReduces, { postName } from "./reducers/postSlice";
+import postReducer, { postName } from "./reducers/postSlice";
 import rootSaga from "./sagas/rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   theme: themeReducer,
-  [postName]: postReduces,
+  [postName]: postReducer,
   auth: authReducer,
 });
 
