@@ -9,6 +9,7 @@ import SignUp from "./SignUp";
 import Confirm from "./Cofirm";
 import { AuthSelectors, getUserInfo } from "src/redux/reducers/authSlice";
 import Search from "src/pages/Search";
+import AddPost from "src/pages/AddPost";
 
 export enum RoutesList {
   Home = "/",
@@ -41,7 +42,7 @@ const Router = () => {
           <Route
             path={RoutesList.AddPost}
             element={
-              isLoggedIn ? <Home /> : <Navigate to={RoutesList.SignIn} />
+              isLoggedIn ? <AddPost /> : <Navigate to={RoutesList.SignIn} />
             }
           />
           <Route path={RoutesList.SignIn} element={<SignIn />} />

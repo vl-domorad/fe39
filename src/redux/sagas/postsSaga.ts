@@ -3,6 +3,7 @@ import { ApiResponse } from "apisauce";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import {
+  addNewPost,
   getAllPosts,
   getSearchedPosts,
   setAllPosts,
@@ -10,7 +11,8 @@ import {
 } from "../reducers/postSlice";
 import API from "../api";
 import { AllPostsResponse } from "./@types";
-import { GetAllPostsPayload } from "src/redux/reducers/@types";
+import { AddPostPayload, GetAllPostsPayload } from "src/redux/reducers/@types";
+import callCheckingAuth from "src/redux/sagas/callCheckingAuth";
 
 function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
   const { offset } = action.payload;
@@ -38,9 +40,23 @@ function* getSearchedPostsWorker(action: PayloadAction<string>) {
   }
 }
 
+function* addNewPostWorker(action: PayloadAction<AddPostPayload>) {
+  const { data, callback } = action.payload;
+  const { ok, problem }: ApiResponse<undefined> = yield callCheckingAuth(
+    API.addPost,
+    data
+  );
+  if (ok) {
+    callback();
+  } else {
+    console.warn("Error adding post", problem);
+  }
+}
+
 export default function* postsSaga() {
   yield all([
     takeLatest(getAllPosts, getAllPostsWorker),
     takeLatest(getSearchedPosts, getSearchedPostsWorker),
+    takeLatest(addNewPost, addNewPostWorker),
   ]);
 }

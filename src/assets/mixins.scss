@@ -1,3 +1,4 @@
+@import "colors";
 @mixin button {
   border-radius: 2px;
   padding: 16px 32px;
@@ -10,4 +11,12 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+@mixin title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $secondary;
+  margin-bottom: 8px;
 }

@@ -4,6 +4,7 @@ import { CardListType, CardType } from "src/utils/@globalTypes";
 import {
   GetAllPostsPayload,
   SetAllPostsPayload,
+  AddPostPayload
 } from "src/redux/reducers/@types";
 
 export enum LikeStatus {
@@ -84,6 +85,7 @@ const postSlice = createSlice({
     setSearchedPosts: (state, action: PayloadAction<CardListType>) => {
       state.searchedPosts = action.payload;
     },
+    addNewPost: (_, __: PayloadAction<AddPostPayload>) => {}
   },
 });
 
@@ -93,6 +95,7 @@ export const {
   setAllPosts,
   getSearchedPosts,
   setSearchedPosts,
+  addNewPost,
 } = postSlice.actions;
 export const postName = postSlice.name;
 export default postSlice.reducer;
