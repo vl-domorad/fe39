@@ -12,6 +12,7 @@ type InputProps = {
   errorText?: string;
   type?: string;
   inputClassName?: string;
+  onBlur?: () => void
 };
 const Input: FC<InputProps> = ({
   value,
@@ -23,6 +24,7 @@ const Input: FC<InputProps> = ({
   errorText,
   inputClassName,
   onKeyDown,
+  onBlur,
 }) => {
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -40,6 +42,7 @@ const Input: FC<InputProps> = ({
         placeholder={placeholder}
         onKeyDown={onKeyDown}
         onChange={onChangeText}
+        onBlur={onBlur}
         disabled={disabled}
         type={type}
       />
