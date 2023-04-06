@@ -1,4 +1,4 @@
-import { takeLatest, all, call, put } from "redux-saga/effects";
+import { takeLatest, all, call, put, takeLeading } from "redux-saga/effects";
 import { ApiResponse } from "apisauce";
 import { PayloadAction } from "@reduxjs/toolkit";
 
@@ -12,7 +12,11 @@ import {
 } from "../reducers/postSlice";
 import API from "../api";
 import { AllPostsResponse } from "./@types";
-import { AddPostPayload, GetAllPostsPayload } from "src/redux/reducers/@types";
+import {
+  AddPostPayload,
+  GetAllPostsPayload,
+  GetSearchPostsPayload,
+} from "src/redux/reducers/@types";
 import callCheckingAuth from "src/redux/sagas/callCheckingAuth";
 
 function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
@@ -30,14 +34,21 @@ function* getAllPostsWorker(action: PayloadAction<GetAllPostsPayload>) {
   yield put(setAllPostsLoading(false));
 }
 
-function* getSearchedPostsWorker(action: PayloadAction<string>) {
+function* getSearchedPostsWorker(action: PayloadAction<GetSearchPostsPayload>) {
+  const { searchValue, isOverwrite, offset } = action.payload;
   const { ok, data, problem }: ApiResponse<AllPostsResponse> = yield call(
     API.getPosts,
-    0,
-    action.payload
+    offset,
+    searchValue
   );
   if (ok && data) {
-    yield put(setSearchedPosts(data.results));
+    yield put(
+      setSearchedPosts({
+        cardList: data.results,
+        postsCount: data.count,
+        isOverwrite,
+      })
+    );
   } else {
     console.warn("Error getting all posts", problem);
   }
@@ -59,7 +70,7 @@ function* addNewPostWorker(action: PayloadAction<AddPostPayload>) {
 export default function* postsSaga() {
   yield all([
     takeLatest(getAllPosts, getAllPostsWorker),
-    takeLatest(getSearchedPosts, getSearchedPostsWorker),
+    takeLeading(getSearchedPosts, getSearchedPostsWorker),
     takeLatest(addNewPost, addNewPostWorker),
   ]);
 }

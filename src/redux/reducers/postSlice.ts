@@ -4,7 +4,9 @@ import { CardListType, CardType } from "src/utils/@globalTypes";
 import {
   GetAllPostsPayload,
   SetAllPostsPayload,
-  AddPostPayload
+  AddPostPayload,
+  GetSearchPostsPayload,
+  SetSearchedPostsPayload,
 } from "src/redux/reducers/@types";
 
 export enum LikeStatus {
@@ -21,6 +23,7 @@ type PostState = {
   searchedPosts: CardListType;
   searchValue: string;
   postsCount: number;
+  searchedPostsCount: number;
   isAllPostsLoading: boolean;
 };
 
@@ -33,6 +36,7 @@ const initialState: PostState = {
   searchedPosts: [],
   searchValue: "",
   postsCount: 0,
+  searchedPostsCount: 0,
   isAllPostsLoading: false,
 };
 
@@ -49,7 +53,7 @@ const postSlice = createSlice({
       state.postsCount = postsCount;
     },
     setAllPostsLoading: (state, action: PayloadAction<boolean>) => {
-      state.isAllPostsLoading = action.payload
+      state.isAllPostsLoading = action.payload;
     },
     setSelectedPost: (state, action: PayloadAction<CardType | null>) => {
       state.selectedPost = action.payload;
@@ -84,13 +88,22 @@ const postSlice = createSlice({
         state[secondaryKey].splice(secondaryIndex, 1);
       }
     },
-    getSearchedPosts: (state, action: PayloadAction<string>) => {
-      state.searchValue = action.payload;
+    getSearchedPosts: (state, action: PayloadAction<GetSearchPostsPayload>) => {
+      state.searchValue = action.payload.searchValue;
     },
-    setSearchedPosts: (state, action: PayloadAction<CardListType>) => {
-      state.searchedPosts = action.payload;
+    setSearchedPosts: (
+      state,
+      action: PayloadAction<SetSearchedPostsPayload>
+    ) => {
+      const { isOverwrite, cardList, postsCount } = action.payload;
+      state.searchedPostsCount = postsCount;
+      if (isOverwrite) {
+        state.searchedPosts = cardList;
+      } else {
+        state.searchedPosts.push(...cardList);
+      }
     },
-    addNewPost: (_, __: PayloadAction<AddPostPayload>) => {}
+    addNewPost: (_, __: PayloadAction<AddPostPayload>) => {},
   },
 });
 
@@ -101,7 +114,7 @@ export const {
   getSearchedPosts,
   setSearchedPosts,
   addNewPost,
-  setAllPostsLoading
+  setAllPostsLoading,
 } = postSlice.actions;
 export const postName = postSlice.name;
 export default postSlice.reducer;
@@ -114,4 +127,5 @@ export const PostSelectors = {
   getSearchValue: (state: RootState) => state.post.searchValue,
   getAllPostsCount: (state: RootState) => state.post.postsCount,
   getAllPostsLoading: (state: RootState) => state.post.isAllPostsLoading,
+  getSearchedPostsCount: (state: RootState) => state.post.searchedPostsCount,
 };

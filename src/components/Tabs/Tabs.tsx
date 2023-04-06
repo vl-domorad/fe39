@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useMemo } from "react";
 import classNames from "classnames";
 
 import styles from "./Tabs.module.scss";
@@ -14,7 +14,6 @@ type TabsProps = {
 
 const Tabs: FC<TabsProps> = ({ activeTab, onTabClick }) => {
   const { theme } = useThemeContext();
-
   const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
 
   const TABS_LIST = useMemo(

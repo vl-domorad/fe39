@@ -30,7 +30,17 @@ export type GetAllPostsPayload = {
   offset: number;
 };
 
-export type SetAllPostsPayload = {
+export interface SetAllPostsPayload {
   cardList: CardListType;
   postsCount: number;
+}
+
+export type GetSearchPostsPayload = {
+  searchValue: string;
+  isOverwrite: boolean;
+  offset: number;
 };
+
+export interface SetSearchedPostsPayload extends SetAllPostsPayload {
+  isOverwrite: boolean;
+}

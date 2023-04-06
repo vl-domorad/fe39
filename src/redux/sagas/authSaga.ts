@@ -66,7 +66,7 @@ function* signInUserWorker(action: PayloadAction<SignInUserPayload>) {
 
 function* getUserInfoWorker() {
   const { ok, problem, data }: ApiResponse<UserInfoResponse> =
-    yield callCheckingAuth(API.getUserInfo, '10', 12, {}, []);
+    yield callCheckingAuth(API.getUserInfo);
   if (ok && data) {
     yield put(setUserInfo(data));
   } else {
