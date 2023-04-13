@@ -2,7 +2,7 @@
   "name": "fe-39",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vl-domorad.github.io/fe39-react/",
+  "homepage": "https://vl-domorad.github.io/fe39/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.14.1",
@@ -34,7 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "CI=false yarn run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

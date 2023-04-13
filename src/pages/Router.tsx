@@ -10,6 +10,8 @@ import Confirm from "./Cofirm";
 import { AuthSelectors, getUserInfo } from "src/redux/reducers/authSlice";
 import Search from "src/pages/Search";
 import AddPost from "src/pages/AddPost";
+import ResetPassword from "src/pages/ResetPassword";
+import NewPassword from "src/pages/NewPassword";
 
 export enum RoutesList {
   Home = "/",
@@ -21,6 +23,8 @@ export enum RoutesList {
   Confirm = "/activate/:uid/:token",
   Success = "/sign-up/success",
   Default = "*",
+  ResetPassword = "/sign-in/reset-password",
+  NewPassword = "/password/reset/confirm/:uid/:token",
 }
 
 const Router = () => {
@@ -50,6 +54,8 @@ const Router = () => {
           <Route path={RoutesList.Confirm} element={<Confirm />} />
           <Route path={RoutesList.Search} element={<Search />} />
           <Route path={RoutesList.Default} element={<div>404 NOT FOUND</div>} />
+          <Route path={RoutesList.ResetPassword} element={<ResetPassword />} />
+          <Route path={RoutesList.NewPassword} element={<NewPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

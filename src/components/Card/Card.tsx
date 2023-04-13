@@ -11,14 +11,14 @@ import {
   FilledBookmarkIcon,
   LikeIcon,
   MoreIcon,
-} from "../../assets/icons";
-import { Theme, useThemeContext } from "../../context/Theme/Context";
+} from "src/assets/icons";
+import { Theme, useThemeContext } from "src/context/Theme/Context";
 import {
   LikeStatus,
   PostSelectors,
   setStatus,
-} from "../../redux/reducers/postSlice";
-import { CardSize } from "../../utils/@globalTypes";
+} from "src/redux/reducers/postSlice";
+import { CardSize } from "src/utils/@globalTypes";
 
 const Card: FC<CardProps> = ({ card, size }) => {
   const { title, text, date, image, id } = card;

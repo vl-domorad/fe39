@@ -1,6 +1,8 @@
 import { create } from "apisauce";
 import {
   ActivateUserData,
+  NewPasswordData,
+  ResetPasswordData,
   SignInUserData,
   UserPayloadData,
 } from "src/redux/reducers/@types";
@@ -59,6 +61,14 @@ const addPost = (token: string, data: any) => {
   });
 };
 
+const resetPassword = (data: ResetPasswordData) => {
+  return API.post("/auth/users/reset_password/", data);
+};
+
+const newPassword = (data: NewPasswordData) => {
+  return API.post("/auth/users/reset_password_confirm/", data);
+};
+
 export default {
   getPosts,
   getSinglePost,
@@ -69,4 +79,6 @@ export default {
   verifyToken,
   refreshToken,
   addPost,
+  resetPassword,
+  newPassword
 };

@@ -7,6 +7,8 @@ import {
   activateUser,
   getUserInfo,
   logoutUser,
+  newPassword,
+  resetPassword,
   setLoggedIn,
   setUserInfo,
   signInUser,
@@ -14,6 +16,8 @@ import {
 } from "../reducers/authSlice";
 import {
   ActivateUserPayload,
+  NewPasswordPayload,
+  ResetPasswordPayload,
   SignInUserPayload,
   SignUpUserPayload,
 } from "../reducers/@types";
@@ -74,6 +78,30 @@ function* getUserInfoWorker() {
   }
 }
 
+function* resetPasswordWorker(action: PayloadAction<ResetPasswordPayload>) {
+  const { data, callback } = action.payload;
+  const { ok, problem }: ApiResponse<undefined> = yield call(
+    API.resetPassword,
+    data
+  );
+  if (ok) {
+    callback();
+  } else {
+    console.warn("Error resetting password", problem);
+  }
+}
+function* newPasswordWorker(action: PayloadAction<NewPasswordPayload>) {
+  const { data, callback } = action.payload;
+  const { ok, problem }: ApiResponse<undefined> = yield call(
+    API.newPassword,
+    data
+  );
+  if (ok) {
+    callback();
+  } else {
+    console.warn("Error setting new password", problem);
+  }
+}
 function* logoutUserWorker() {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(REFRESH_TOKEN_KEY);
@@ -87,5 +115,7 @@ export default function* authSaga() {
     takeLatest(signInUser, signInUserWorker),
     takeLatest(logoutUser, logoutUserWorker),
     takeLatest(getUserInfo, getUserInfoWorker),
+    takeLatest(resetPassword, resetPasswordWorker),
+    takeLatest(newPassword, newPasswordWorker),
   ]);
 }
